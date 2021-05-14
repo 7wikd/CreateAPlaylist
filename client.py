@@ -5,11 +5,23 @@ from track import Track
 from playlist import Playlist
 
 class Client:
+    """
+    Working with the Spotify API
+    """
+
     def __init__(self,auth_token,user_id):
+        """
+        auth_token: Spotify API Token
+        user_id: Spotify User ID
+        """
         self.auth_token = auth_token
         self.user_id = user_id
 
+    """
+    GET
+    """
     def _place_get_api_request(self, url):
+        
         response = requests.get(
             url,
             headers={
@@ -19,6 +31,9 @@ class Client:
         )
         return response
 
+    """
+    POST
+    """
     def _place_post_api_request(self, url, data):
         response = requests.post(
             url,
@@ -31,6 +46,12 @@ class Client:
         return response
 
     def last_played_tracks(self, limit=10):
+        """
+        Get's last played tracks
+        
+        limit: Number of tracks to get (<=50)
+        tracks: list of last played tracks
+        """
         url = f"https://api.spotify.com/v1/me/player/recently-played?limit={limit}"
         response = self._place_get_api_request(url)
         response_json = response.json()
@@ -38,6 +59,13 @@ class Client:
         return tracks
 
     def track_recommendations(self,seed_tracks,limit=50):
+        """
+        Get's list of recommended tracks from seed tracks
+        
+        seed_tracks: list of reference tracks for recommendations
+        limit: Number of recommended tracks to get (<=50)
+        tracks: list of recommended tracks
+        """
         seed_tracks_url = ""
         for seed_track in seed_tracks:
             seed_tracks_url += seed_track.id + ','
@@ -50,6 +78,10 @@ class Client:
 
     
     def create_playlist(self,name):
+        """
+        name: Playlist name given by user
+        playlist: Newly created playlist
+        """
         data = json.dumps({
             "name":name,
             "description":"Recommended Songs: ",
@@ -66,6 +98,13 @@ class Client:
         return playlist
 
     def fill_playlist(self,playlist,tracks):
+        """
+        Add tracks to created playlist
+
+        playlist: Name of playlist to which tracks to be added
+        tracks: List of tracks to be added
+        response: API Response
+        """
         track_uris = [track.create_uri() for track in tracks]
         data = json.dumps(track_uris)
         url = f"https://api.spotify.com/v1/playlists/{playlist.id}/tracks"

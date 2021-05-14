@@ -1,5 +1,13 @@
 class Track:
+    """
+    For a single track
+    """
     def __init__(self, name, id, artist):
+        """
+        name: Name of the song
+        id: Spotify track id
+        artist: Artist Name
+        """
         self.name = name
         self.id = id
         self.artist = artist
