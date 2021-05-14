@@ -1,7 +1,7 @@
 # CreateAPlaylist
 
 - Helps you to create a new Playlist using data from previously heard songs in Spotify.
-- Creates a playlist of relevant songs.
+- Recommends new relevant songs, that can be added to a new playlist.
 
 ## How to get this to work:
 - Get `Auth Token` for Spotify Playlist: https://developer.spotify.com/console/post-playlists/
