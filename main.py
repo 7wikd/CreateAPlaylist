@@ -2,7 +2,7 @@ from client import Client
 
 def main():
     AUTH_TOKEN = input("Enter Authorization token: ")
-    User_ID = input("Enter User ID: ")
+    User_ID = input("Enter Username: ")
 
     spotify_client = Client(AUTH_TOKEN,User_ID)
 
